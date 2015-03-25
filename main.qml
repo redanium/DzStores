@@ -50,7 +50,6 @@ import "content/pages"
 
 
 ApplicationWindow {
-    //   property alias mainStackView: stackView
     property bool keepMeLogedIn: settings.getValue("keepMeLogedIn")
     property bool accountType: false
     property alias appTitle: toolbarnium.appTitle
@@ -58,16 +57,13 @@ ApplicationWindow {
     visible: true
     width: 800
     height: 1280
-    // visibility: Window.FullScreen
+    //visibility: Window.FullScreen
     title: "DzStores"
 
     Rectangle {
         color: "#eeeeee"
-        clip: true//"#008a00"
-
-
+        clip: true
         anchors.fill: parent
-
     }
 
     toolBar:ToolBarnium{
@@ -86,12 +82,12 @@ ApplicationWindow {
                 } else { Qt.quit(); }
             }
         }
+
         StackView {
             id: stackView
             clip: true
             activeFocusOnTab: true
             objectName: "mainStackView"
-
             anchors.fill: parent
             delegate: StackViewDelegate {
                 function transitionFinished(properties)
@@ -114,11 +110,7 @@ ApplicationWindow {
                     }
                 }
             }
-            initialItem:{
-                return Qt.createComponent(Qt.resolvedUrl("qrc:/content/pages/Home.qml"));
-
-
-            }
+            initialItem:{ return Qt.createComponent(Qt.resolvedUrl("qrc:/content/pages/Home.qml"));}
         }
 
         Rectangle {
@@ -126,7 +118,8 @@ ApplicationWindow {
             anchors.fill: parent
             color: "black"
             opacity: 0
-        }}
+        }
+    }
 
 
     ContextMenu {
@@ -193,7 +186,6 @@ ApplicationWindow {
             name: "contextMenuOpen"
             when: contextMenu.open
             PropertyChanges { target: contextMenu; x: 0;  }
-            // PropertyChanges { target: mainView; x: 130 }
             PropertyChanges { target: shade; opacity: 0.25 }
         }
 
@@ -201,12 +193,12 @@ ApplicationWindow {
             NumberAnimation { properties: "x,opacity"; duration: 600; easing.type: Easing.OutQuint }
         }
     }
-Toast{
-    id:_Toast
-    anchors.horizontalCenter: parent.horizontalCenter
-    anchors.bottom: parent.bottom
-    anchors.bottomMargin: 50
+    Toast{
+        id:_Toast
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 50
 
-}
+    }
 
 }

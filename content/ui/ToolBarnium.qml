@@ -12,7 +12,6 @@ FlipBar{
     property string placeHolder: "Search Products, Services and Stores."
     property alias searchText: lineInput.text
     property alias appTitle: appTitle.text
-    //   property alias prefix: lineInput.prefix
     property bool opened: false
     signal ok
     signal hasOpened
@@ -32,14 +31,16 @@ FlipBar{
     }
 
 
-    front:   Rectangle {
+    front:
+        Rectangle {
         id: toolbarFront
+
         anchors.fill: parent
         color:"#689f38"
 
-
         Rectangle {
             id: backButton
+
             width: opacity ? 38 : 0
             anchors.left: parent.left
             anchors.leftMargin: 0
@@ -49,11 +50,14 @@ FlipBar{
             height: 50
             radius: 4
             color: backmouse.pressed ? "#222" : "transparent"
+
             Behavior on opacity { NumberAnimation{} }
+
             Image {
                 anchors.verticalCenter: parent.verticalCenter
                 source: "qrc:/images/navigation_previous_item.png"
             }
+
             MouseArea {
                 id: backmouse
                 anchors.fill: parent
@@ -61,28 +65,29 @@ FlipBar{
                 onClicked: stackView.pop()
             }
         }
+
         Image {
             id: appLogo
+
             x: backButton.x + backButton.width +5
             width: 42
             height: 42
             smooth: true
-            //                    Layout.maximumWidth:  42
-            //                    Layout.maximumHeight:  42
-            //                    Layout.minimumHeight: 42
-            //                    Layout.minimumWidth: 42
             fillMode: Image.PreserveAspectFit
             source: "qrc:/images/dzstores_logo.png"
             Behavior on x { NumberAnimation{ easing.type: Easing.OutCubic} }
             anchors.verticalCenter: parent.verticalCenter
+
             MouseArea{
                 anchors.fill: parent
                 onClicked: contextMenu.open=!contextMenu.open;
             }
 
         }
+
         Text {
             id:appTitle
+
             font.pixelSize: 25
             Behavior on x { NumberAnimation{ easing.type: Easing.OutCubic} }
             x: appLogo.x + appLogo.width + 20
@@ -97,15 +102,17 @@ FlipBar{
 
         ToolButton {
             id: searchButton
+
             anchors.right: parent.right
             anchors.rightMargin: 10
             anchors.verticalCenter: parent.verticalCenter
             height: 50
             width: 50
             // enabled: searchField.text.length>0 ? true:false
-            Image {
 
+            Image {
                 id: searchImg
+
                 fillMode: Image.PreserveAspectFit
                 source: "qrc:/images/search.png"
                 anchors.centerIn: parent
@@ -113,10 +120,9 @@ FlipBar{
                 width: 38
                 sourceSize.height: 128
                 sourceSize.width: 128
-
-
             }
             onClicked:{
+
                 if (!flipBar.opened)
                     flipBar.open()
                 else if (!lineInput.activeFocus)
@@ -130,11 +136,15 @@ FlipBar{
 
 
     }
-    back: Rectangle   {
+    back:
+        Rectangle   {
+
         anchors.fill: parent
         color: "#689f38"
+
         RowLayout{
             id:searchRow
+
             anchors.top: parent.top
             anchors.left: parent.left
             anchors.right: parent.right
@@ -142,9 +152,11 @@ FlipBar{
             anchors.leftMargin: 4
             height: 50
             spacing:1
+
             ToolButton{
-                Layout.alignment: Qt.AlignVCenter
                 id: backButton3
+
+                Layout.alignment: Qt.AlignVCenter
                 Layout.maximumWidth:  30
                 Layout.maximumHeight:  50
                 onClicked:{
@@ -168,8 +180,10 @@ FlipBar{
                 }
 
             }
+
             LineInput{
                 id: lineInput
+
                 hint: flipBar.placeHolder
                 focus: flipBar.opened
                 Layout.fillWidth: true
@@ -185,8 +199,9 @@ FlipBar{
 
             }
             ToolButton{
-                Layout.alignment: Qt.AlignVCenter
                 id: backButton2
+
+                Layout.alignment: Qt.AlignVCenter
                 Layout.maximumWidth:  30
                 Layout.maximumHeight:  50
                 onClicked:{
@@ -213,6 +228,7 @@ FlipBar{
 
         Rectangle{
             id: toolbarBack
+
             color: "transparent"
             anchors.top: searchRow.bottom
             anchors.left: parent.left
@@ -224,28 +240,24 @@ FlipBar{
             anchors.bottomMargin:  5
             opacity: 0
 
-
             Rectangle {
+
                 anchors.fill: parent
                 radius: 5
                 border.color: "lightgrey"
-
                 color: "#8fb379"
+
                 Row{
                     anchors.fill: parent
                     anchors.margins: 20
                     spacing: 20
-                    ListView {
 
+                    ListView {
                         id: listView2
-                        //                        anchors.top:parent.top
-                        //                        anchors.left: parent.left
-                        //                        anchors.bottom: parent.bottom
+
                         width: parent.width/2-10
-                        // Layout.fillHeight: true
                         height: parent.height
                         clip:true;
-
                         flickableDirection: Flickable.VerticalFlick
                         boundsBehavior: Flickable.DragOverBounds
                         contentHeight: 250
@@ -254,32 +266,24 @@ FlipBar{
                         section.property: "category_name"
                         section.criteria: ViewSection.FullString
                         section.labelPositioning :ViewSection.CurrentLabelAtStart
-                        section.delegate:Component {
+                        section.delegate:
+                            Component {
                             id: sectionHeading
+
                             Rectangle {
                                 width: ListView.view.width
                                 height: 60
                                 radius: 5
                                 color:
-                                    switch(section)
-
-                                    {
-
-
+                                    switch(section){
                                     case "VEHICULES" : return "yellow";
                                     case "MAISON" : return "lightsteelblue";
                                     case "IMMOBILIER" : return "red";
                                     case "MULTIMEDIA" : return "orange";
                                     case "LOISIRS" : return "blue";
-                                    case "MATERIEL PROFESSIONNEL" : return "yellow";
-                                    case "EMPLOI et SERVICES" : return "pink";
+                                    case "MATERIEL PROFESSIONNEL" : return "lime";
                                     case "Autres" : return "lightgrey";
-
-
-
                                     default: return "purple";
-
-
                                     }
 
                                 Text {
@@ -291,14 +295,13 @@ FlipBar{
                                     verticalAlignment: Text.AlignVCenter
                                     font.pixelSize: 15
                                     wrapMode: Text.WrapAnywhere
-
                                 }
                             }
                         }
 
                         model: XmlListModel{
-
                             id: xmlModel
+
                             source: "qrc:/content/cat.xml"
                             query: "/categories/sub_category"
 
@@ -312,6 +315,7 @@ FlipBar{
                             height: 60
 
                             MouseArea{
+
                                 anchors.fill: parent
                                 onClicked:  {
                                     if(Qt.colorEqual("white",rect.color) )
@@ -322,10 +326,12 @@ FlipBar{
 
                             Rectangle {
                                 id:rect
+
                                 radius: 5
                                 border.color: "#b5c2ae"
                                 anchors.fill: parent
                                 anchors.margins: 5
+
                                 Text {
                                     id: textitem
                                     color: "black"
@@ -367,6 +373,7 @@ FlipBar{
                         }
                         Image {
                             id: addFilterImg
+
                             source: "qrc:/images/add.png"
                             height: 32
                             width: 32
@@ -389,14 +396,8 @@ FlipBar{
                 State {
                     name: "expanded"
                     PropertyChanges { target: shade; opacity: 0.85 }
-
                     PropertyChanges { target: flipBar; height: 350}
                     PropertyChanges { target: toolbarBack; opacity: 1 }
-
-
-
-                    //  PropertyChanges { target: closeButton; opacity: 1 }
-                    //   PropertyChanges { target: wrapper.ListView.view; contentY: wrapper.y; interactive: false }
                 }
             ]
 
@@ -409,14 +410,7 @@ FlipBar{
                 }
             ]
 
-
-
         }
-
-
-
-
-
 
     }
     onOk: {
