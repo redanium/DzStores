@@ -1,0 +1,22 @@
+#ifndef DBHELPER_H
+#define DBHELPER_H
+
+#include <QObject>
+#include <QSqlDatabase>
+
+class dbHelper : public QObject
+{
+    Q_OBJECT
+public:
+    explicit dbHelper(QObject *parent = 0);
+    ~dbHelper();
+
+signals:
+
+public slots:
+
+private:
+    QSqlDatabase db;
+};
+
+#endif // DBHELPER_H

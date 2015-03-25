@@ -1,0 +1,18 @@
+#include "dbhelper.h"
+
+dbHelper::dbHelper(QObject *parent) : QObject(parent)
+{
+  db = QSqlDatabase::addDatabase("QMYSQL");
+        db.setHostName("db4free.net");
+        db.setPort(3306);
+        db.setDatabaseName("dzstores");
+        db.setUserName("redanium");
+        db.setPassword("reda00");
+        bool ok = db.open();
+}
+
+dbHelper::~dbHelper()
+{
+
+}
+
